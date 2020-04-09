@@ -39,11 +39,11 @@ public class Usuario {
 	@JoinColumn(name = "Condominio_ID")
 	private Condominio condominio;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "Sexo_ID")
 	private Sexo sexo;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "TipoUsuario_ID")
 	private Tipo_Usuario tipo_Usuario;
 	

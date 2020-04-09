@@ -1,20 +1,21 @@
 package com.recycler.main.entities;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -22,30 +23,29 @@ import javax.persistence.Table;
 public class Bolsa {
 	
 	@Id
-	@Column(name = "Bolsa_ID")
+	@Column(name = "Categoria_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int Codigo;
 	
-	@Column(name = "CreadoFecha",nullable = false)
+	@Column(name = "CreadoFecha",nullable=false)
 	private Date CreadoFecha;
 	
-	@Column(name = "RecojoFecha",nullable = false)
+	@Column(name = "RecojoFecha",nullable=false)
 	private Date RecojoFecha;
 	
-	@Column(name = "Puntuacion",nullable = false)
-	private int Puntuacion;
-	
-	@ManyToOne
+	@Column(name = "Puntuacion",nullable=false)
+	private Date Puntuacion;
+
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "Usuario_ID")
 	private Usuario usuario;
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "QrCode_ID")
 	private QrCode qrCode;
 	
-    @OneToMany(mappedBy = "bolsa",cascade = CascadeType.ALL)
-    private Set<Producto_Bolsa> productosBolsas= new HashSet<>();
-	
+	@OneToMany(mappedBy = "bolsa")
+	private List<Probolsa> bolsaproductos;
 	
 	public int getCodigo() {
 		return Codigo;
@@ -65,12 +65,7 @@ public class Bolsa {
 	public void setRecojoFecha(Date recojoFecha) {
 		RecojoFecha = recojoFecha;
 	}
-	public int getPuntuacion() {
-		return Puntuacion;
-	}
-	public void setPuntuacion(int puntuacion) {
-		Puntuacion = puntuacion;
-	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -86,5 +81,5 @@ public class Bolsa {
 	
 	
 	
-
 }
+

@@ -1,9 +1,16 @@
 package com.recycler.main.entities;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name="Producto")
@@ -26,17 +33,16 @@ public class Producto {
 	@Column(name="Contenido",nullable = false)
 	private double Contenido;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "Categoria_ID")
 	private Categoria categoria;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "TipoContenido_ID")
 	private Tipo_Contenido tipo_Contenido;
 	
-	@OneToMany(mappedBy = "producto",cascade = CascadeType.ALL)
-	private Set<Producto_Bolsa> productosBolsas;
-	
+	@OneToMany(mappedBy = "producto")
+	private List<Probolsa> bolsaproductos;
 	
 	
 	
@@ -86,3 +92,4 @@ public class Producto {
 	
 	
 }
+

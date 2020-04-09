@@ -32,7 +32,7 @@ public class DistritoController {
 		return ResponseEntity.ok(newDistrito);
 	}
 	
-	@RequestMapping(value="{ditritoID}")
+	/*@RequestMapping(value="{ditritoID}")
 	public ResponseEntity<Distrito> getDistritoById(@PathVariable("ditritoID") Integer ditritoID){
 		Optional<Distrito>optionalDistrito = distritoDAO.findById(ditritoID);
 		if(!optionalDistrito.isPresent()) {
@@ -40,6 +40,13 @@ public class DistritoController {
 		}else {
 			return ResponseEntity.ok(optionalDistrito.get());
 		}
+	}*/
+	
+	@RequestMapping(value="{departamento}")
+	public ResponseEntity<List<Distrito>> getDistritosByDepartamento(@PathVariable("departamento") String departamento) {
+		List<Distrito>distritos = distritoDAO.findByDepartamentoNombre(departamento);
+		return ResponseEntity.ok(distritos);
 	}
+	
 
 }
